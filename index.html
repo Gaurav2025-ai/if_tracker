@@ -337,22 +337,21 @@
             background: rgba(0,229,255,0.05);
             border: 1px solid rgba(0,229,255,0.15);
             border-radius: 12px;
-            padding: 1rem 1.25rem;
+            padding: 1.1rem 1.25rem;
             margin-bottom: 1rem;
-            font-style: italic;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             position: relative;
             overflow: hidden;
+            line-height: 1.6;
         }
 
         .motivation::before {
-            content: '"';
+            content: '💡';
             position: absolute;
-            top: -10px; left: 10px;
-            font-size: 4rem;
-            color: rgba(0, 229, 255, 0.12);
-            font-family: serif;
+            top: 8px; right: 10px;
+            font-size: 1.2rem;
+            opacity: 0.5;
         }
 
         .motivation span { position: relative; }
@@ -432,7 +431,7 @@
 <body>
 
 <header class="header">
-    <h1>⚡ FAST</h1>
+    <h1>⚡ FAST — Gaurav 2026</h1>
     <div style="display:flex; gap:0.5rem;">
         <button class="btn-icon" onclick="resetAll()">🗑️</button>
     </div>
@@ -609,26 +608,30 @@ const ROUTINE = [
 // MOTIVATION
 // ═══════════════════════════════════════
 const QUOTES = [
-    "Your body is not a temple. It's a machine. Feed it right, push it hard, it performs.",
-    "16 hours of fasting is nothing. You sleep through half of it.",
-    "Every hour fasting, your body burns stored fat. That's the deal.",
-    "Discipline weighs ounces. Regret weighs tons.",
-    "You don't have to be extreme. Just consistent.",
-    "The scale is a trend, not a verdict. Trust the process.",
-    "Hunger is temporary. The results are permanent.",
-    "You're not starving. You're giving your body time to heal.",
-    "Small daily improvements lead to stunning results.",
-    "The first week is the hardest. After that, your body adapts.",
-    "Water is your best friend during fasting. Drink up.",
-    "Every completed day is proof you can do this.",
-    "Autophagy kicks in around 16 hours. That's cellular cleanup.",
-    "You chose this. That means you can do this.",
-    "Progress, not perfection. One day at a time."
+    { day: 1, tip: "🧬 Master Tip: Your body has 2 fuel modes — glucose and fat. Fasting flips the switch to fat-burning after 12 hours. Today you're teaching your body a new skill.", badge: "Day 1 — The Switch" },
+    { day: 2, tip: "🔥 Master Tip: At 14-16 hours fasted, your insulin drops to baseline. This is when stubborn belly fat becomes accessible. Most people never reach this state because they snack.", badge: "Day 2 — Insulin Reset" },
+    { day: 3, tip: "🧠 Master Tip: Fasting increases BDNF (Brain-Derived Neurotrophic Factor) by 400%. This protein grows new brain cells. You're not just losing weight — you're getting sharper.", badge: "Day 3 — Brain Boost" },
+    { day: 4, tip: "💪 Master Tip: Growth Hormone spikes up to 500% during fasting. This is why muscle is preserved — your body releases HGH to protect lean tissue while burning fat.", badge: "Day 4 — HGH Surge" },
+    { day: 5, tip: "🔄 Master Tip: Autophagy (cellular cleanup) peaks at 16-24 hours fasted. Your cells literally eat their own damaged parts and rebuild. This is anti-aging at the cellular level.", badge: "Day 5 — Autophagy" },
+    { day: 6, tip: "⚡ Master Tip: After 5 days of consistent IF, your body's fat oxidation rate increases by 60%. You're now burning fat more efficiently than day 1 — even at rest.", badge: "Day 6 — Fat Adapted" },
+    { day: 7, tip: "🏆 Master Tip: 1 week in — your ghrelin (hunger hormone) has already started resetting to your new meal times. The hunger you felt on day 1? It's weaker now. That's adaptation.", badge: "Day 7 — Ghrelin Reset" },
+    { day: 8, tip: "🧪 Master Tip: Fasting reduces inflammation markers (CRP, IL-6) by 40-50%. Chronic inflammation causes water retention and bloating. Less inflammation = visible results faster.", badge: "Day 8 — Inflammation Drop" },
+    { day: 9, tip: "🫀 Master Tip: Research shows IF improves heart health markers within 2 weeks — lower triglycerides, better cholesterol ratio, reduced blood pressure. Your heart thanks you.", badge: "Day 9 — Heart Health" },
+    { day: 10, tip: "🎯 Master Tip: You've now completed 10 days. Studies show it takes 10 days to form a neural pathway for a new habit. IF is becoming your default — not a challenge.", badge: "Day 10 — Habit Formed" },
+    { day: 11, tip: "🧬 Master Tip: Fasting activates the AMPK pathway — your body's energy sensor. It forces cells to become more efficient, recycling old mitochondria for new, powerful ones.", badge: "Day 11 — Cell Power-Up" },
+    { day: 12, tip: "💧 Master Tip: During fasting, your kidneys improve sodium handling. This means less water retention. Many people see a 'whoosh' effect around days 10-14 where weight drops suddenly.", badge: "Day 12 — The Whoosh" },
+    { day: 13, tip: "🏋️ Master Tip: Training in a fasted state increases fat oxidation by 20% more than fed training. Your morning exercise before breakfast? That's scientifically optimized fat burning.", badge: "Day 13 — Fasted Training" },
+    { day: 14, tip: "📊 Master Tip: After 2 weeks of IF, your metabolic flexibility is dramatically improved. Your body can now switch between glucose and fat seamlessly — that's metabolic health.", badge: "Day 14 — Metabolic Flex" },
+    { day: 15, tip: "👑 Master Tip: 15 days done. Research shows people who complete 2+ weeks of IF are 80% more likely to sustain it long-term. You've crossed the threshold. This is your lifestyle now.", badge: "Day 15 — Lifestyle Locked" }
 ];
 
 function showMotivation() {
-    const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
-    document.getElementById('quoteText').textContent = q;
+    const start = new Date(getStartDate());
+    const now = new Date(selectedDay);
+    const dayNum = Math.floor((now - start) / 86400000) + 1;
+    const idx = Math.max(0, Math.min(dayNum - 1, QUOTES.length - 1));
+    const q = QUOTES[idx];
+    document.getElementById('quoteText').innerHTML = `<strong style="color: var(--primary); font-style: normal;">${q.badge}</strong><br>${q.tip}`;
 }
 
 // ═══════════════════════════════════════
@@ -670,6 +673,7 @@ function selectDay(key) {
     selectedDay = key;
     renderDaySelector();
     loadDayUI();
+    showMotivation();
 }
 
 // ═══════════════════════════════════════
